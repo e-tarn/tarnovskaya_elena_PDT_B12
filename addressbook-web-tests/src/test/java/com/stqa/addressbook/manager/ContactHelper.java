@@ -29,4 +29,26 @@ public class ContactHelper extends HelperBase{
   public void initContactCreation() {
     click(By.cssSelector("[href='edit.php']"));
   }
+
+  public void selectContact() {
+    click(By.name("selected[]"));
+  }
+
+  public void deleteContact() {
+    click(By.cssSelector("[onclick='DeleteSel()']"));
+    acceptAlert();
+  }
+
+
+  public void initEditFirstContact() {
+    click(By.cssSelector("[title=Edit]"));
+  }
+
+  public void confirmUpdateContact() {
+    click(By.name("update"));
+  }
+
+  public void deleteContactFromModificationForm() {
+    click(By.cssSelector("[action='delete.php'] [name=update]"));
+  }
 }

@@ -1,7 +1,6 @@
 package com.stqa.addressbook.tests;
 
 import com.stqa.addressbook.model.ConcactData;
-import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 public class ContactCreationTests extends  TestBase {
