@@ -1,4 +1,4 @@
-package com.stqa.addressbook;
+package com.stqa.addressbook.model;
 
 public class ConcactData {
   private final String fname;
