@@ -3,11 +3,12 @@ package com.stqa.addressbook.manager;
 import com.stqa.addressbook.model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class GroupHelper extends HelperBase{
 
-  public GroupHelper(WebDriver wd) {
-    super(wd);
+  public GroupHelper(WebDriver wd, WebDriverWait wait) {
+    super(wd, wait);
   }
 
   public void returnToGroupPage() {
@@ -42,5 +43,16 @@ public class GroupHelper extends HelperBase{
 
   public void submitGroupModification() {
     click(By.name("update"));
+  }
+
+  public boolean isThereAGroup() {
+    return isElementPresent(By.name("selected[]"));
+  }
+
+  public void createGroup(GroupData group) {
+    initGroupCreation();
+    fillGroupForm(group);
+    submitGroupCreation();
+    returnToGroupPage();
   }
 }

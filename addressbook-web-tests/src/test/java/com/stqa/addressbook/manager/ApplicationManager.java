@@ -5,11 +5,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager{
   protected WebDriver wd;
+  protected WebDriverWait wait;
   GroupHelper group;
   ContactHelper contact;
   SessionHelper session;
@@ -28,16 +30,17 @@ public class ApplicationManager{
       wd = new ChromeDriver();
     } else if (browser.equals(BrowserType.IE)) {
       wd = new InternetExplorerDriver();
-
-      wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    }
+      wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+    wait = new WebDriverWait(wd, 20);
       wd.get("http://localhost/addressbook/");
-      session = new SessionHelper(wd);
-      nav = new NavigationHelper(wd);
-      group = new GroupHelper(wd);
-      contact = new ContactHelper(wd);
+      session = new SessionHelper(wd, wait);
+      nav = new NavigationHelper(wd, wait);
+      group = new GroupHelper(wd, wait);
+      contact = new ContactHelper(wd, wait);
       session.login("admin", "secret");
     }
-  }
+
 
   public void stop() {
     wd.quit();

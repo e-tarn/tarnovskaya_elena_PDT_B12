@@ -1,13 +1,19 @@
 package com.stqa.addressbook.manager;
 
-import com.stqa.addressbook.model.ConcactData;
+import com.stqa.addressbook.model.ContactData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.*;
+import org.testng.Assert;
 
-public class ContactHelper extends HelperBase{
+public class ContactHelper extends HelperBase {
 
-  public ContactHelper(WebDriver wd) {
-    super(wd);
+  //public ContactHelper(WebDriver wd) {
+//    super(wd);
+//  }
+
+  public ContactHelper(WebDriver wd, WebDriverWait wait) {
+    super(wd, wait);
   }
 
   public void returnToHomePage() {
@@ -18,12 +24,25 @@ public class ContactHelper extends HelperBase{
     click(By.name("submit"));
   }
 
-  public void fillContactCreationForm(ConcactData concactData) {
-    type(By.name("firstname"), concactData.getFname());
-    type(By.name("address"), concactData.getAddress());
-    type(By.name("home"), concactData.getHomePhone());
-    type(By.name("mobile"), concactData.getMobPhone());
-    type(By.name("email"), concactData.getEmail());
+  public void fillContactCreationForm(ContactData contactData, boolean creation) {
+    type(By.name("firstname"), contactData.getFname());
+    type(By.name("middlename"), contactData.getmName());
+    type(By.name("lastname"), contactData.getLname());
+    type(By.name("address"), contactData.getAddress());
+    type(By.name("home"), contactData.getHomePhone());
+    type(By.name("mobile"), contactData.getMobPhone());
+    type(By.name("email"), contactData.getEmail());
+    if (creation) {
+      new Select(wd.findElement(By.name("new_group")))
+              .selectByVisibleText(contactData.getGroup());
+    } else Assert.assertFalse(isElementPresent(By.name("new_group")));
+
+  }
+
+  public void fillContactCreationFormShortVersion(ContactData contactData, boolean creation) {
+    type(By.name("firstname"), contactData.getFname());
+    type(By.name("middlename"), contactData.getmName());
+
   }
 
   public void initContactCreation() {
@@ -37,6 +56,7 @@ public class ContactHelper extends HelperBase{
   public void deleteContact() {
     click(By.cssSelector("[onclick='DeleteSel()']"));
     acceptAlert();
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.id("maintable")));
   }
 
 
@@ -50,5 +70,16 @@ public class ContactHelper extends HelperBase{
 
   public void deleteContactFromModificationForm() {
     click(By.cssSelector("[action='delete.php'] [name=update]"));
+  }
+
+  public boolean isThereAContact() {
+    return isElementPresent(By.name("selected"));
+  }
+
+  public void createContact(ContactData contact) {
+    initContactCreation();
+    fillContactCreationFormShortVersion(contact, true);
+    submitContactCreation();
+    returnToHomePage();
   }
 }
