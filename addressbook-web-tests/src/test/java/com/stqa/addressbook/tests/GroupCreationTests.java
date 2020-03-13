@@ -14,15 +14,11 @@ public class GroupCreationTests extends TestBase {
   @Test
   public void testGroupCreation() throws Exception {
 
-    app.getNav().goToGroupPage();
-    List<GroupData> before = app.getGroup().getGroupList();
-
-    app.getGroup().initGroupCreation();
+    app.goTo().groupPage();
+    List<GroupData> before = app.group().list();
     GroupData group = new GroupData("name", "g_header", "g_footer");
-    app.getGroup().fillGroupForm(group);
-    app.getGroup().submitGroupCreation();
-    app.getGroup().returnToGroupPage();
-    List<GroupData> after = app.getGroup().getGroupList();
+    app.group().create(group);
+    List<GroupData> after = app.group().list();
     Assert.assertEquals(after.size(), before.size() + 1);
     //old compare
 //int max = 0;
@@ -49,6 +45,8 @@ public class GroupCreationTests extends TestBase {
     Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
 
   }
+
+
 
 }
 

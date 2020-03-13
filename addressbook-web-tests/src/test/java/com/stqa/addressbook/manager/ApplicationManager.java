@@ -1,5 +1,6 @@
 package com.stqa.addressbook.manager;
 
+import com.stqa.addressbook.model.ContactData;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -32,7 +33,7 @@ public class ApplicationManager {
       wd = new InternetExplorerDriver();
     }
     wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-    wait = new WebDriverWait(wd, 20);
+    wait = new WebDriverWait(wd, 25);
     wd.get("http://localhost/addressbook/");
     session = new SessionHelper(wd, wait);
     nav = new NavigationHelper(wd, wait);
@@ -47,11 +48,11 @@ public class ApplicationManager {
   }
 
 
-  public GroupHelper getGroup() {
+  public GroupHelper group() {
     return group;
   }
 
-  public ContactHelper getContact() {
+  public ContactHelper contact() {
     return contact;
   }
 
@@ -59,7 +60,9 @@ public class ApplicationManager {
     return session;
   }
 
-  public NavigationHelper getNav() {
+  public NavigationHelper goTo() {
     return nav;
   }
+
+
 }

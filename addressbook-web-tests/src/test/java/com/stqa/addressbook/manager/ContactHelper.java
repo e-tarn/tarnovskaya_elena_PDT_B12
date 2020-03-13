@@ -55,14 +55,15 @@ public class ContactHelper extends HelperBase {
     click(By.cssSelector("[href='edit.php']"));
   }
 
-  public void selectContact(int i) {
+  public void select(int i) {
     clickByIndex(By.name("selected[]"), i);
   }
 
-  public void deleteContact() {
+  public void delete() throws InterruptedException {
     click(By.cssSelector("[onclick='DeleteSel()']"));
     acceptAlert();
-    wait.until(ExpectedConditions.presenceOfElementLocated(By.id("maintable")));
+    Thread.sleep(5000);
+    //wait.until(ExpectedConditions.presenceOfElementLocated(By.id("maintable")));
   }
 
 
@@ -74,22 +75,31 @@ public class ContactHelper extends HelperBase {
     click(By.name("update"));
   }
 
-  public void deleteContactFromModificationForm() {
+  public void deleteFromModificationForm(int index) throws InterruptedException {
+    initEdit(index);
     click(By.cssSelector("[action='delete.php'] [name=update]"));
+    Thread.sleep(5000);
   }
 
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public void createContact(ContactData contact) {
+  public void create(ContactData contact) {
     initContactCreation();
     fillContactCreationFormShortVersion(contact, true);
     submitContactCreation();
     returnToHomePage();
   }
 
-  public List<ContactData> getContactsList() {
+  public void modify(ContactData contact, int index) {
+    initEdit(index);
+    fillContactCreationForm(contact, false);
+    confirmUpdateContact();
+    returnToHomePage();
+  }
+
+  public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<>();
     List<WebElement> rows = wd.findElements(By.cssSelector("tr[name=entry]"));
     for (WebElement row : rows) {
@@ -102,7 +112,7 @@ public class ContactHelper extends HelperBase {
     return contacts;
   }
 
-  public void initEditContact(int i) {
+  public void initEdit(int i) {
     clickByIndex(By.cssSelector("[title=Edit]"), i);
   }
 }

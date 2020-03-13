@@ -10,18 +10,18 @@ import java.util.List;
 public class ContactDeletionTests extends TestBase {
   @BeforeMethod
   public void preconditions() {
-    app.getNav().goToHomePage();
-    if (!app.getContact().isThereAContact()) {
-      app.getContact().createContact(new ContactData("fName", "lname"));
+    app.goTo().homePage();
+    if (app.contact().list().size()==0) {
+      app.contact().create(new ContactData("fName", "lname"));
     }
   }
 
   @Test
-  public void testContactDeletionFromHomePage() {
-    List<ContactData> before = app.getContact().getContactsList();
-    app.getContact().selectContact(before.size() - 1);
-    app.getContact().deleteContact();
-    List<ContactData> after = app.getContact().getContactsList();
+  public void testContactDeletionFromHomePage() throws InterruptedException {
+    List<ContactData> before = app.contact().list();
+    app.contact().select(before.size() - 1);
+    app.contact().delete();
+    List<ContactData> after = app.contact().list();
 
     Assert.assertEquals(after.size(), before.size() - 1);
 
@@ -30,13 +30,12 @@ public class ContactDeletionTests extends TestBase {
     Assert.assertEquals(after, before);
   }
 
-  @Test
-  public void testContactDeletionFromContactModificationPage() {
-    // app.getNav().goToHomePage();
-    List<ContactData> before = app.getContact().getContactsList();
-    app.getContact().initEditContact(before.size() - 1);
-    app.getContact().deleteContactFromModificationForm();
-    List<ContactData> after = app.getContact().getContactsList();
+  @Test(enabled = false)
+  public void testContactDeletionFromContactModificationPage() throws InterruptedException {
+    List<ContactData> before = app.contact().list();
+    int index = before.size() - 1;
+    app.contact().deleteFromModificationForm(index);
+    List<ContactData> after = app.contact().list();
 
     Assert.assertEquals(after.size(), before.size() - 1);
 
