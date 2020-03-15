@@ -16,7 +16,10 @@ public class GroupCreationTests extends TestBase {
 
     app.goTo().groupPage();
     List<GroupData> before = app.group().list();
-    GroupData group = new GroupData("name", "g_header", "g_footer");
+    GroupData group = new GroupData()
+            .withName("name")
+            .withHeader("g_header")
+            .withFooter("g_footer");
     app.group().create(group);
     List<GroupData> after = app.group().list();
     Assert.assertEquals(after.size(), before.size() + 1);
@@ -40,12 +43,11 @@ public class GroupCreationTests extends TestBase {
 
     //lambda
     // int max1 = after.stream().max((Comparator<GroupData>) (o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId();
-    group.setId(after.stream().max((Comparator<GroupData>) (o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
+    group.withId(after.stream().max((Comparator<GroupData>) (o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
     before.add(group);
-    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+    Assert.assertEquals(new HashSet<Object>(after), new HashSet<Object>(before));
 
   }
-
 
 
 }

@@ -87,16 +87,17 @@ public class ContactHelper extends HelperBase {
 
   public void create(ContactData contact) {
     initContactCreation();
-    fillContactCreationFormShortVersion(contact, true);
+    fillContactCreationForm(contact, true);
     submitContactCreation();
     returnToHomePage();
   }
 
-  public void modify(ContactData contact, int index) {
+  public void modify(ContactData contact, int index) throws InterruptedException {
     initEdit(index);
     fillContactCreationForm(contact, false);
     confirmUpdateContact();
     returnToHomePage();
+    Thread.sleep(5000);
   }
 
   public List<ContactData> list() {
@@ -106,7 +107,7 @@ public class ContactHelper extends HelperBase {
       int id = Integer.parseInt(row.findElement(By.xpath(".//td[1]/input")).getAttribute("value"));
       String lname = row.findElement(By.xpath(".//td[2]")).getText();
       String fname = row.findElement(By.xpath(".//td[3]")).getText();
-      ContactData contact = new ContactData(id, fname, lname);
+      ContactData contact = new ContactData().withId(id).withFname(fname).withLname(lname);
       contacts.add(contact);
     }
     return contacts;

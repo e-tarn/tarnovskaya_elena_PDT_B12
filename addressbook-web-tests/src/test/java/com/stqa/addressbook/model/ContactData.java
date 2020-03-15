@@ -3,7 +3,7 @@ package com.stqa.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-  int id;
+  int id = Integer.MAX_VALUE;
   private String fname;
   private String lname;
   private String mName;
@@ -13,44 +13,48 @@ public class ContactData {
   private String email;
   private String group;
 
-  public ContactData(String fname, String lname, String mName,
-                     String address, String homePhone, String mobPhone,
-                     String email, String group) {
-    this.id = 0;
-    this.fname = fname;
-    this.lname = lname;
-    this.mName = mName;
-    this.address = address;
-    this.homePhone = homePhone;
-    this.mobPhone = mobPhone;
-    this.email = email;
-    this.group = group;
-  }
-
-  public ContactData(int id, String fname, String lname, String mName,
-                     String address, String homePhone, String mobPhone,
-                     String email, String group) {
+  public ContactData withId(int id) {
     this.id = id;
+    return this;
+  }
+  public ContactData withFname(String fname) {
     this.fname = fname;
+    return this;
+  }
+
+  public ContactData withLname(String lname) {
     this.lname = lname;
+    return this;
+  }
+
+  public ContactData withmName(String mName) {
     this.mName = mName;
+    return this;
+  }
+
+  public ContactData withAddress(String address) {
     this.address = address;
+    return this;
+  }
+
+  public ContactData withHomePhone(String homePhone) {
     this.homePhone = homePhone;
+    return this;
+  }
+
+  public ContactData withMobPhone(String mobPhone) {
     this.mobPhone = mobPhone;
+    return this;
+  }
+
+  public ContactData withEmail(String email) {
     this.email = email;
+    return this;
+  }
+
+  public ContactData withGroup(String group) {
     this.group = group;
-  }
-
-  public ContactData(int id, String fname, String lname) {
-    this.fname = fname;
-    this.lname = lname;
-
-  }
-
-  public ContactData(String fname, String lname) {
-    this.fname = fname;
-    this.lname = lname;
-
+    return this;
   }
 
   @Override
@@ -70,10 +74,9 @@ public class ContactData {
 
   @Override
   public String toString() {
-    return "ContactData{" +
-            "fname='" + fname + '\'' +
-            ", lname='" + lname + '\'' +
-            '}';
+    return  "id=" + id +
+            ", fname='" + fname + '\'' +
+            ", lname='" + lname + '\'' ;
   }
 
   public String getFname() {
@@ -112,7 +115,5 @@ public class ContactData {
     return mName;
   }
 
-  public void setId(int id) {
-    this.id = id;
-  }
+
 }
