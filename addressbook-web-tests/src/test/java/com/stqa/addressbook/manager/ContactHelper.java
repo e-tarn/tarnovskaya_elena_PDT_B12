@@ -1,6 +1,7 @@
 package com.stqa.addressbook.manager;
 
 import com.stqa.addressbook.model.ContactData;
+import com.stqa.addressbook.model.Contacts;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +11,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -39,10 +42,14 @@ public class ContactHelper extends HelperBase {
     type(By.name("mobile"), contactData.getMobPhone());
     type(By.name("email"), contactData.getEmail());
     if (creation) {
-      new Select(wd.findElement(By.name("new_group")))
-              .selectByVisibleText(contactData.getGroup());
-    } else Assert.assertFalse(isElementPresent(By.name("new_group")));
+      selectFromDropDown(By.name("new_group"),contactData.getGroup());
 
+              ;
+    } else Assert.assertFalse(isElementPresent(By.name("new_group")));
+//
+//
+//
+//
   }
 
   public void fillContactCreationFormShortVersion(ContactData contactData, boolean creation) {
@@ -59,11 +66,28 @@ public class ContactHelper extends HelperBase {
     clickByIndex(By.name("selected[]"), i);
   }
 
-  public void delete() throws InterruptedException {
+  public void selectContactById(int id) {
+      click(By.cssSelector("input[id='" + id +"']"));
+  }
+
+  public void selectEditContactById(int id){
+    click(By.xpath("//input[@id='" + id + "']/../..//img[@title='Edit']"));
+  }
+
+  public void delete(int i){
+    select(i);
     click(By.cssSelector("[onclick='DeleteSel()']"));
     acceptAlert();
-    Thread.sleep(5000);
-    //wait.until(ExpectedConditions.presenceOfElementLocated(By.id("maintable")));
+
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.id("maintable")));
+  }
+
+  public void delete(ContactData contact)  {
+    selectContactById(contact.getId());
+    click(By.cssSelector("[onclick='DeleteSel()']"));
+    acceptAlert();
+
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.id("maintable")));
   }
 
 
@@ -75,10 +99,10 @@ public class ContactHelper extends HelperBase {
     click(By.name("update"));
   }
 
-  public void deleteFromModificationForm(int index) throws InterruptedException {
+  public void deleteFromModificationForm(int index) {
     initEdit(index);
     click(By.cssSelector("[action='delete.php'] [name=update]"));
-    Thread.sleep(5000);
+
   }
 
   public boolean isThereAContact() {
@@ -92,13 +116,12 @@ public class ContactHelper extends HelperBase {
     returnToHomePage();
   }
 
-  public void modify(ContactData contact, int index) throws InterruptedException {
+  public void modify(ContactData contact, int index){
     initEdit(index);
     fillContactCreationForm(contact, false);
     confirmUpdateContact();
     returnToHomePage();
-    Thread.sleep(5000);
-  }
+     }
 
   public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<>();
@@ -113,7 +136,43 @@ public class ContactHelper extends HelperBase {
     return contacts;
   }
 
+  public Set<ContactData> all() {
+    Set<ContactData> contacts = new HashSet<>();
+    List<WebElement> rows = wd.findElements(By.cssSelector("tr[name=entry]"));
+    for (WebElement row : rows) {
+      int id = Integer.parseInt(row.findElement(By.xpath(".//td[1]/input")).getAttribute("value"));
+      String lname = row.findElement(By.xpath(".//td[2]")).getText();
+      String fname = row.findElement(By.xpath(".//td[3]")).getText();
+      ContactData contact = new ContactData().withId(id).withFname(fname).withLname(lname);
+
+      contacts.add(contact);
+    }
+    return contacts;
+  }
+
+  public Contacts allContacts() {
+   Contacts contacts = new Contacts();
+    List<WebElement> rows = wd.findElements(By.cssSelector("tr[name=entry]"));
+    for (WebElement row : rows) {
+      int id = Integer.parseInt(row.findElement(By.xpath(".//td[1]/input")).getAttribute("value"));
+      String lname = row.findElement(By.xpath(".//td[2]")).getText();
+      String fname = row.findElement(By.xpath(".//td[3]")).getText();
+      ContactData contact = new ContactData().withId(id).withFname(fname).withLname(lname);
+
+      contacts.add(contact);
+    }
+    return contacts;
+  }
   public void initEdit(int i) {
     clickByIndex(By.cssSelector("[title=Edit]"), i);
+  }
+
+
+  public void modifyById(ContactData contact) {
+    selectEditContactById(contact.getId());
+    fillContactCreationForm(contact, false);
+    confirmUpdateContact();
+    returnToHomePage();
+
   }
 }
