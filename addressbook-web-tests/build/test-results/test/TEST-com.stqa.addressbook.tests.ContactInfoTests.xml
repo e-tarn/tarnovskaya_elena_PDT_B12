@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.stqa.addressbook.tests.ContactInfoTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-21T21:17:20" hostname="Lena-Toshiba" time="5.065">
+  <properties/>
+  <testcase name="testContactInfoIsEqualsToHomePage" classname="com.stqa.addressbook.tests.ContactInfoTests" time="5.065"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
