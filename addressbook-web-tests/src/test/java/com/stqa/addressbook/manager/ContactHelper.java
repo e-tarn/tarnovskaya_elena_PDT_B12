@@ -42,9 +42,9 @@ public class ContactHelper extends HelperBase {
     type(By.name("mobile"), contactData.getMobPhone());
     type(By.name("email"), contactData.getEmail());
     if (creation) {
-      selectFromDropDown(By.name("new_group"),contactData.getGroup());
+      selectFromDropDown(By.name("new_group"), contactData.getGroup());
 
-              ;
+      ;
     } else Assert.assertFalse(isElementPresent(By.name("new_group")));
 //
 //
@@ -67,14 +67,15 @@ public class ContactHelper extends HelperBase {
   }
 
   public void selectContactById(int id) {
-      click(By.cssSelector("input[id='" + id +"']"));
+    click(By.cssSelector("input[id='" + id + "']"));
   }
 
-  public void selectEditContactById(int id){
-    click(By.xpath("//input[@id='" + id + "']/../..//img[@title='Edit']"));
+  public void selectEditContactById(int id) {
+    //click(By.xpath("//input[@id='" + id + "']/../..//img[@title='Edit']"));
+    click(By.xpath(String.format("//input[@id='%s']/../..//img[@title='Edit']", id)));
   }
 
-  public void delete(int i){
+  public void delete(int i) {
     select(i);
     click(By.cssSelector("[onclick='DeleteSel()']"));
     acceptAlert();
@@ -82,7 +83,7 @@ public class ContactHelper extends HelperBase {
     wait.until(ExpectedConditions.presenceOfElementLocated(By.id("maintable")));
   }
 
-  public void delete(ContactData contact)  {
+  public void delete(ContactData contact) {
     selectContactById(contact.getId());
     click(By.cssSelector("[onclick='DeleteSel()']"));
     acceptAlert();
@@ -116,12 +117,12 @@ public class ContactHelper extends HelperBase {
     returnToHomePage();
   }
 
-  public void modify(ContactData contact, int index){
+  public void modify(ContactData contact, int index) {
     initEdit(index);
     fillContactCreationForm(contact, false);
     confirmUpdateContact();
     returnToHomePage();
-     }
+  }
 
   public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<>();
@@ -151,18 +152,26 @@ public class ContactHelper extends HelperBase {
   }
 
   public Contacts allContacts() {
-   Contacts contacts = new Contacts();
+    Contacts contacts = new Contacts();
     List<WebElement> rows = wd.findElements(By.cssSelector("tr[name=entry]"));
     for (WebElement row : rows) {
       int id = Integer.parseInt(row.findElement(By.xpath(".//td[1]/input")).getAttribute("value"));
       String lname = row.findElement(By.xpath(".//td[2]")).getText();
       String fname = row.findElement(By.xpath(".//td[3]")).getText();
-      ContactData contact = new ContactData().withId(id).withFname(fname).withLname(lname);
+   String allPhones = row.findElement(By.xpath(".//td[6]")).getText();
+     // String[] phones = row.findElement(By.xpath(".//td[6]")).getText().split("\n");
+
+      ContactData contact = new ContactData()
+              .withId(id)
+              .withFname(fname)
+              .withLname(lname)
+              .withAllPhones(allPhones);
 
       contacts.add(contact);
     }
     return contacts;
   }
+
   public void initEdit(int i) {
     clickByIndex(By.cssSelector("[title=Edit]"), i);
   }
@@ -174,5 +183,22 @@ public class ContactHelper extends HelperBase {
     confirmUpdateContact();
     returnToHomePage();
 
+  }
+
+  public ContactData infoFromEditForm(ContactData contact) {
+    selectEditContactById(contact.getId());
+    String lName = wd.findElement(By.name("lastname")).getAttribute("value");
+    String fName = wd.findElement(By.name("firstname")).getAttribute("value");
+    String home = wd.findElement(By.name("home")).getAttribute("value");
+    String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+    String work = wd.findElement(By.name("work")).getAttribute("value");
+    wd.navigate().back();
+
+    return new ContactData().withId(contact.getId())
+            .withFname(fName)
+            .withLname(lName)
+            .withHomePhone(home)
+            .withMobPhone(mobile)
+            .withWorkPhone(work);
   }
 }

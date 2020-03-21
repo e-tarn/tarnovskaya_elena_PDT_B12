@@ -25,12 +25,27 @@ public class GroupCreationTests extends TestBase {
             .withHeader("g_header")
             .withFooter("g_footer");
     app.group().create(group);
+    assertThat(app.group().count(), equalTo(before.size()+1));
     Groups after = app.group().allGroups();
-    assertThat(after.size(), equalTo(before.size() + 1));
-
 
     assertThat(after, equalTo(before.withAdded(
             group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+  }
+
+  @Test
+  public void testBadGroupCreationFluent() {
+
+    app.goTo().groupPage();
+    Groups before = app.group().allGroups();
+    GroupData group = new GroupData()
+            .withName("name'")
+            .withHeader("g_header")
+            .withFooter("g_footer");
+    app.group().create(group);
+    assertThat(app.group().count(), equalTo(before.size()));
+    Groups after = app.group().allGroups();
+
+    assertThat(after, equalTo(before));
   }
 
   @Test

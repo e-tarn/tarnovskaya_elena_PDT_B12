@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.stqa.addressbook.tests.GroupCreationTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-03-19T07:48:05" hostname="Lena-Toshiba" time="6.662">
-  <properties/>
-  <testcase name="testGroupCreation" classname="com.stqa.addressbook.tests.GroupCreationTests" time="2.418"/>
-  <testcase name="testGroupCreationFluent" classname="com.stqa.addressbook.tests.GroupCreationTests" time="2.081"/>
-  <testcase name="testGroupCreationHashSet" classname="com.stqa.addressbook.tests.GroupCreationTests" time="2.162"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

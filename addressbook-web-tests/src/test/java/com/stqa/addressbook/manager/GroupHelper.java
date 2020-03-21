@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 public class GroupHelper extends HelperBase {
+  private  Groups groupCash = null;
 
   public GroupHelper(WebDriver wd, WebDriverWait wait) {
     super(wd, wait);
@@ -64,6 +65,7 @@ public class GroupHelper extends HelperBase {
     initGroupCreation();
     fillGroupForm(group);
     submitGroupCreation();
+    groupCash = null;
     returnToGroupPage();
   }
 
@@ -80,6 +82,7 @@ public class GroupHelper extends HelperBase {
     initGroupModification();
     fillGroupForm(group);
     submitGroupModification();
+    groupCash = null;
     returnToGroupPage();
   }
 
@@ -92,12 +95,13 @@ public class GroupHelper extends HelperBase {
   public void delete(GroupData group) {
     selectGroupById(group.getId());
     deleteGroup();
+    groupCash = null;
     returnToGroupPage();
   }
 
 
 
-  public int getGroupCount() {
+  public int count() {
     return wd.findElements(By.name("selected[]")).size();
   }
 
@@ -126,14 +130,17 @@ public class GroupHelper extends HelperBase {
   }
 
   public Groups allGroups() {
-    Groups groups = new Groups();
+    if(groupCash!=null){
+      return new Groups(groupCash);
+    }
+    groupCash = new Groups();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     for (WebElement element : elements) {
       String groupName = element.getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       GroupData group = new GroupData().withId(id).withName(groupName);
-      groups.add(group);
+      groupCash.add(group);
     }
-    return groups;
+    return new Groups(groupCash);
   }
 }
