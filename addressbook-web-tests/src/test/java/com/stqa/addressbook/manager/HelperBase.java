@@ -36,7 +36,7 @@ public class HelperBase {
   }
 
       public void selectFromDropDown(By locator, String item){
-    if(!item.equals(null) ){
+    if(item!= null) {
       new Select(wd.findElement(locator))
               .selectByVisibleText(item);
     }

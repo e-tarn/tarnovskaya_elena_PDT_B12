@@ -1,35 +1,49 @@
 package com.stqa.addressbook.tests;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.stqa.addressbook.model.ContactData;
 import com.stqa.addressbook.model.Contacts;
+import com.stqa.addressbook.model.GroupData;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreationTests extends TestBase {
+  @DataProvider
+  public Iterator<Object[]> validContactsJson() throws IOException {
+    List<Object[]> list = new ArrayList<>();
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")));
+    String json = "";
+    String line = reader.readLine();
+    while (line != null) {
+      json += line;
+      line = reader.readLine();
+    }
+    Gson gson = new Gson();
+    List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>() {
+    }.getType());
 
-  @Test
-  public void testContactCreationFluent() {
+    return contacts.stream().map((c) -> new Object[]{c}).collect(Collectors.toList()).iterator();
+
+  }
+
+  @Test(dataProvider = "validContactsJson")
+  public void testContactCreationFluent(ContactData contact) {
     app.goTo().homePage();
     Contacts before = app.contact().allContacts();
 
     app.contact().initContactCreation();
-    ContactData contact = new ContactData()
-            .withFname("AriaNew")
-            .withLname("AnevichNew")
-            .withmName("MName")
-            .withAddress("Moscow")
-            .withEmail("123456")
-            .withMobPhone("7890123")
-            .withEmail("qw@we.com")
-            .withGroup("[none]");
     app.contact().create(contact);
 
     Contacts after = app.contact().allContacts();

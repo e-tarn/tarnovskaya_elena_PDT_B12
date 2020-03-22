@@ -43,9 +43,8 @@ public class ContactHelper extends HelperBase {
     if (creation) {
       selectFromDropDown(By.name("new_group"), contactData.getGroup());
 
-      ;
     } else Assert.assertFalse(isElementPresent(By.name("new_group")));
-//
+
 //
 //
 //
