@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.stqa.addressbook.tests.GroupCreationTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-03-26T14:52:50" hostname="Lena-Toshiba" time="23.38">
+<testsuite name="com.stqa.addressbook.tests.GroupCreationTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-03-26T15:00:48" hostname="Lena-Toshiba" time="23.811">
   <properties/>
-  <testcase name="testBadGroupCreationFluent" classname="com.stqa.addressbook.tests.GroupCreationTests" time="4.11"/>
-  <testcase name="testGroupCreation" classname="com.stqa.addressbook.tests.GroupCreationTests" time="3.772"/>
-  <testcase name="testGroupCreationFluent[0](GroupData{id='2147483647', name='test 0'})" classname="com.stqa.addressbook.tests.GroupCreationTests" time="4.289"/>
-  <testcase name="testGroupCreationFluent[1](GroupData{id='2147483647', name='test 1'})" classname="com.stqa.addressbook.tests.GroupCreationTests" time="3.776"/>
-  <testcase name="testGroupCreationFluent[2](GroupData{id='2147483647', name='test 2'})" classname="com.stqa.addressbook.tests.GroupCreationTests" time="3.265"/>
-  <testcase name="testGroupCreationHashSet" classname="com.stqa.addressbook.tests.GroupCreationTests" time="4.009"/>
+  <testcase name="testBadGroupCreationFluent" classname="com.stqa.addressbook.tests.GroupCreationTests" time="4.444"/>
+  <testcase name="testGroupCreation" classname="com.stqa.addressbook.tests.GroupCreationTests" time="4.368"/>
+  <testcase name="testGroupCreationFluent[0](GroupData{id='2147483647', name='test 0'})" classname="com.stqa.addressbook.tests.GroupCreationTests" time="4.03"/>
+  <testcase name="testGroupCreationFluent[1](GroupData{id='2147483647', name='test 1'})" classname="com.stqa.addressbook.tests.GroupCreationTests" time="3.01"/>
+  <testcase name="testGroupCreationFluent[2](GroupData{id='2147483647', name='test 2'})" classname="com.stqa.addressbook.tests.GroupCreationTests" time="3.402"/>
+  <testcase name="testGroupCreationHashSet" classname="com.stqa.addressbook.tests.GroupCreationTests" time="4.397"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

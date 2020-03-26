@@ -1,4 +1,5 @@
 .gradle
+*.log
 
 
 # Ignore Gradle GUI config
