@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.stqa.addressbook.tests.ContactCreationTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-03-21T21:16:41" hostname="Lena-Toshiba" time="21.584">
-  <properties/>
-  <testcase name="testContactCreation" classname="com.stqa.addressbook.tests.ContactCreationTests" time="7.128"/>
-  <testcase name="testContactCreationFluent" classname="com.stqa.addressbook.tests.ContactCreationTests" time="8.116"/>
-  <testcase name="testContactCreationHashSet" classname="com.stqa.addressbook.tests.ContactCreationTests" time="6.331"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

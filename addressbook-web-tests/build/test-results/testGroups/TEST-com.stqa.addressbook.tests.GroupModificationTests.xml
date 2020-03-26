@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.stqa.addressbook.tests.GroupModificationTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-03-26T14:53:15" hostname="Lena-Toshiba" time="14.542">
+  <properties/>
+  <testcase name="testAnyGroupModification" classname="com.stqa.addressbook.tests.GroupModificationTests" time="4.164"/>
+  <testcase name="testGroupModification" classname="com.stqa.addressbook.tests.GroupModificationTests" time="4.087"/>
+  <testcase name="testGroupModificationFluent" classname="com.stqa.addressbook.tests.GroupModificationTests" time="3.867"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

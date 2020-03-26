@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite1" verbose="1" >
+    <test name="Groups" >
+        <classes>
+            <class name="com.stqa.addressbook.tests.GroupCreationTests" />
+            <class name="com.stqa.addressbook.tests.GroupModificationTests" />
+            <class name="com.stqa.addressbook.tests.GroupDeletionTests" />
+        </classes>
+    </test>
+
+    <test name="Contacts">
+        <classes>
+            <class name="com.stqa.addressbook.tests.ContactCreationTests" />
+            <class name="com.stqa.addressbook.tests.ContactModificationTests" />
+            <class name="com.stqa.addressbook.tests.ContactDeletionTests" />
+        </classes>
+    </test>
+</suite>

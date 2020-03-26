@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.stqa.addressbook.tests.ContactModificationTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-03-21T21:17:27" hostname="Lena-Toshiba" time="15.227">
-  <properties/>
-  <testcase name="testContactModification" classname="com.stqa.addressbook.tests.ContactModificationTests" time="4.611"/>
-  <testcase name="testContactModificationFluent" classname="com.stqa.addressbook.tests.ContactModificationTests" time="9.095"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

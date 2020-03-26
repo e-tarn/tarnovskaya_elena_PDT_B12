@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.stqa.addressbook.tests.GroupDeletionTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-03-26T14:53:30" hostname="Lena-Toshiba" time="10.634">
+  <properties/>
+  <testcase name="testAnyGroupDeletion" classname="com.stqa.addressbook.tests.GroupDeletionTests" time="2.644"/>
+  <testcase name="testAnyGroupDeletionFluent" classname="com.stqa.addressbook.tests.GroupDeletionTests" time="2.683"/>
+  <testcase name="testGroupDeletionByIndex" classname="com.stqa.addressbook.tests.GroupDeletionTests" time="2.684"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
