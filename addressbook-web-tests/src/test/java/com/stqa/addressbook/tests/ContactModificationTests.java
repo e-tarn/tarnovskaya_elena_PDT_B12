@@ -6,7 +6,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -16,18 +15,18 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactModificationTests extends TestBase {
   @BeforeMethod
   public void preconditions() {
-    app.goTo().homePage();
-
-    if (app.contact().list().size() == 0) {
+    if (app.db().contacts().size() == 0) {
+      app.goTo().homePage();
       app.contact().create(new ContactData()
               .withFname("fName")
               .withLname("lname"));
     }
+    app.goTo().homePage();
   }
 
   @Test
   public void testContactModificationFluent() {
-    Contacts before = app.contact().allContacts();
+    Contacts before = app.db().contacts();
     ContactData modifiedContact = before.iterator().next();
     ContactData contact = new ContactData()
             .withId(modifiedContact.getId())
@@ -39,7 +38,7 @@ public class ContactModificationTests extends TestBase {
             .withMobPhone("45653334444")
             .withEmail("jjjj@kkkk.com");
     app.contact().modifyById(contact);
-    Contacts after = app.contact().allContacts();
+    Contacts after = app.db().contacts();
 
     assertThat(after.size(), equalTo(before.size()));
     assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));

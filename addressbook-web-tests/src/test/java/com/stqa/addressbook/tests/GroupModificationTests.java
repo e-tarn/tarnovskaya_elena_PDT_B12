@@ -16,15 +16,15 @@ import static org.testng.Assert.assertEquals;
 public class GroupModificationTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions() {
-    app.goTo().groupPage();
-    if (app.group().list().size() == 0) {
+    if (app.db().groups().size() == 0) {
+      app.goTo().groupPage();
       app.group().create(new GroupData().withName("name"));
     }
   }
 
   @Test
   public void testGroupModificationFluent() {
-    Groups before = app.group().allGroups();
+    Groups before = app.db().groups();
     GroupData modifiedGroup = before.iterator().next();
     GroupData group = new GroupData()
             .withId(modifiedGroup.getId())
@@ -32,14 +32,16 @@ public class GroupModificationTests extends TestBase {
             .withHeader("mod")
             .withFooter("mod");
 
+    app.goTo().groupPage();
     app.group().modfyById(group);
-    Groups after = app.group().allGroups();
+    Groups after = app.db().groups();
 
     assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));
   }
 
   @Test
   public void testGroupModification() {
+    app.goTo().groupPage();
     List<GroupData> before = app.group().list();
     int index = before.size() - 1;
     GroupData group = new GroupData()
@@ -60,7 +62,7 @@ public class GroupModificationTests extends TestBase {
 
   @Test
   public void testAnyGroupModification() {
-
+    app.goTo().groupPage();
     Set<GroupData> before = app.group().all();
     GroupData modifiedGroup = before.iterator().next();
 

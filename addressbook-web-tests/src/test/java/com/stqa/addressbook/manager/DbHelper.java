@@ -1,5 +1,7 @@
 package com.stqa.addressbook.manager;
 
+import com.stqa.addressbook.model.ContactData;
+import com.stqa.addressbook.model.Contacts;
 import com.stqa.addressbook.model.GroupData;
 import com.stqa.addressbook.model.Groups;
 import org.hibernate.Session;
@@ -25,12 +27,21 @@ public class DbHelper {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
     List result = session.createQuery("from GroupData").list();
-    for (GroupData group : (List<GroupData>) result) {
-      System.out.println(group);
-    }
+
     session.getTransaction().commit();
     session.close();
   return  new Groups(result);
   }
+
+  public Contacts contacts(){
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    List result = session.createQuery( "from ContactData where deprecated = '0000-00-00'" ).list();
+
+    session.getTransaction().commit();
+    session.close();
+    return new Contacts(result);
+  }
+
 
 }
