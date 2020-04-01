@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.stqa.addressbook.model.ContactData;
 import com.stqa.addressbook.model.Contacts;
 import com.stqa.addressbook.model.GroupData;
+import com.stqa.addressbook.model.Groups;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -56,11 +57,8 @@ public class ContactCreationTests extends TestBase {
 
   @Test
   public void testContactCreationHashSet() {
-    app.goTo().homePage();
-    Set<ContactData> before = app.contact().all();
-
-    app.contact().initContactCreation();
-    ContactData contact = new ContactData()
+    Groups dbGroups = app.db().groups();
+    ContactData newContact = new ContactData()
             .withFname("AriaNew")
             .withLname("AnevichNew")
             .withmName("MName")
@@ -68,14 +66,19 @@ public class ContactCreationTests extends TestBase {
             .withEmail("123456")
             .withMobPhone("7890123")
             .withEmail("qw@we.com")
-            .withGroup("[none]");
-    app.contact().create(contact);
+    .inGroup(dbGroups.iterator().next());
+    app.goTo().homePage();
+    Set<ContactData> before = app.contact().all();
+
+    app.contact().initContactCreation();
+
+    app.contact().create(newContact);
 
     Set<ContactData> after = app.contact().all();
     assertThat(after.size(), equalTo(before.size() + 1));
-    contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt());
+    newContact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt());
 
-    before.add(contact);
+    before.add(newContact);
     assertThat(after, equalTo(before));
 
   }
@@ -93,8 +96,8 @@ public class ContactCreationTests extends TestBase {
             .withAddress("Moscow")
             .withEmail("123456")
             .withMobPhone("7890123")
-            .withEmail("qw@we.com")
-            .withGroup("[none]");
+            .withEmail("qw@we.com");
+            //.withGroup("[none]");
     app.contact().create(contact);
 
     List<ContactData> after = app.contact().list();
