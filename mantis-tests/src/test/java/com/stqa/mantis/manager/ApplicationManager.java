@@ -44,7 +44,7 @@ public class ApplicationManager {
     }
     wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     wait = new WebDriverWait(wd, 25);
-    wd.get(properties.getProperty("web.baseUrl","http://localhost/addressbook/"));
+    wd.get(properties.getProperty("web.baseUrl","http://localhost/mantisbt-1.2.19/"));
     session = new SessionHelper(wd, wait);
 
     session.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
