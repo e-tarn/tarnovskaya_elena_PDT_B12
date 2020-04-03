@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
@@ -214,5 +215,27 @@ public class ContactHelper extends HelperBase {
             .withHomePhone(home)
             .withMobPhone(mobile)
             .withWorkPhone(work);
+  }
+
+  public void addContactToTheGroup(int groupId) {
+
+    Select selectGroup = new Select(wd.findElement(By.name("to_group")));
+selectGroup.selectByValue(Integer.toString(groupId));
+click(By.name("add"));
+  }
+
+  public void addContactToTheGroup(int contactId, int groupId){
+   selectContactById(contactId);
+   addContactToTheGroup(groupId);
+  }
+
+  public void filterContactsByGroup(int groupToEdit) {
+    new Select(wd.findElement(By.name("group"))).selectByValue(Integer.toString(groupToEdit));
+  }
+
+  public void deleteContactFromTheGroup() {
+    click(By.name("remove"));
+
+
   }
 }

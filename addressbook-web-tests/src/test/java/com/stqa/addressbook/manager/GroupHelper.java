@@ -1,5 +1,7 @@
 package com.stqa.addressbook.manager;
 
+import com.stqa.addressbook.model.ContactData;
+import com.stqa.addressbook.model.Contacts;
 import com.stqa.addressbook.model.GroupData;
 import com.stqa.addressbook.model.Groups;
 import org.openqa.selenium.By;
@@ -143,4 +145,5 @@ public class GroupHelper extends HelperBase {
     }
     return new Groups(groupCash);
   }
+
 }

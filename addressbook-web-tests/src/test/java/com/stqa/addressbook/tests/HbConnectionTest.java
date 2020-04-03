@@ -1,5 +1,6 @@
 package com.stqa.addressbook.tests;
 
+import com.stqa.addressbook.model.ContGroup;
 import com.stqa.addressbook.model.ContactData;
 import com.stqa.addressbook.model.GroupData;
 import org.hibernate.Session;
@@ -37,9 +38,10 @@ public class HbConnectionTest {
     session.beginTransaction();
     List result = session.createQuery( "from ContactData where deprecated = '0000-00-00'" ).list();
     for ( ContactData contact : (List<ContactData>) result ) {
-      System.out.println(contact);
+     // System.out.println(contact);
       System.out.println(contact.getGroups());
     }
+    System.out.println(result.size());
     session.getTransaction().commit();
     session.close();
   }
@@ -55,4 +57,18 @@ public class HbConnectionTest {
     session.getTransaction().commit();
     session.close();
   }
+
+  @Test
+  public void testHbConnectionContG(){
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    List result = session.createQuery("from ContGroup" ).list();
+    for ( ContGroup item : (List<ContGroup>) result ) {
+      System.out.println(item);
+    }
+    session.getTransaction().commit();
+    session.close();
+  }
+
+
 }
