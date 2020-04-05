@@ -25,4 +25,12 @@ public class RegistrationHelper extends HelperBase {
 
 
   }
+
+  public void startUserCreationFromUI(){
+    long now = System.currentTimeMillis();
+    String email = String.format("user%s@localhost.localdomain", now);
+    String user = String.format("user%s", now);
+    String password = "password";
+    app.registration().start(user, email);
+  }
 }

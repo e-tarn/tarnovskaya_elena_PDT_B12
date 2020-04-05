@@ -38,4 +38,7 @@ public class RegistrationTests extends TestBase {
   public void stopMailServer() {
     app.mail().stop();
   }
+
+
+
 }

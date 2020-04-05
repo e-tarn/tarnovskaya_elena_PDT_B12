@@ -15,14 +15,27 @@ public class ChangeUsersPasswordTests extends TestBase {
 
 
   @BeforeMethod
-  public void startMailServer() {
+  public void preconditions() throws MessagingException {
     app.mail().start();
+    if (app.db().usersNotAdminSetJdbc().size()==0){
+      long now = System.currentTimeMillis();
+      String email = String.format("user%s@localhost.localdomain", now);
+
+      String user = String.format("user%s", now);
+      String password = "password";
+      app.james().createUser(user, password);
+      app.registration().start(user, email);
+      List<MailMessage> mailMessages = app.james().waitForMail(user, password, 60000);
+      String confirmationLink = app.mail().findConfirmationLink(mailMessages, email);
+
+      app.registration().finish(confirmationLink, "password");
+    }
   }
 
 
   @Test
   public void testChangeUsersPasswordByAdmin() throws IOException, MessagingException, InterruptedException {
-    String userName = app.db().usersSetJdbc().iterator().next().getName();
+    String userName = app.db().usersNotAdminSetJdbc().iterator().next().getName();
     String email = String.format("%s@localhost.localdomain", userName);
     System.out.println(userName);
 
@@ -35,7 +48,6 @@ public class ChangeUsersPasswordTests extends TestBase {
     List<MailMessage> mailMessages = app.mail().waitForMail(1, 20000);
     String confirmationLink = app.mail().findConfirmationLink(mailMessages, email);
     app.registration().finish(confirmationLink, "password");
-    Thread.sleep(3000);
     assertTrue(app.newSession().login(userName, "password"));
   }
 
