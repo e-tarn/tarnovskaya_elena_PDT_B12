@@ -9,15 +9,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.query.Query;
-import org.testng.annotations.Test;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class DbHelper {
   private final SessionFactory sessionFactory;
@@ -160,7 +154,7 @@ public class DbHelper {
               DriverManager.getConnection("jdbc:mysql://localhost:3306/addressbook?" +
                       "user=root&password=&serverTimezone=UTC");
       Statement stmt = conn.createStatement();
-      ResultSet rs = stmt.executeQuery("select group_id from address_in_groups where id = "+ contactId);
+      ResultSet rs = stmt.executeQuery("select group_id from address_in_groups where id = " + contactId);
       Groups groups = new Groups();
       while (rs.next()) {
         groups.add(new GroupData().withId(rs.getInt("group_id")));
@@ -179,7 +173,7 @@ public class DbHelper {
       System.out.println("SQLState: " + ex.getSQLState());
       System.out.println("VendorError: " + ex.getErrorCode());
     }
-return null;
+    return null;
   }
 
   public Groups groupsIdOnlyJdbc() {

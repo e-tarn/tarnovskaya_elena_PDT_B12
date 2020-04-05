@@ -23,7 +23,11 @@ public class ApplicationManager {
   private String browser;
   private RegistrationHelper registrationHelper;
   private MailHelper mailHelper;
-  private SessionHelper sessionHelper ;
+  private SessionHelperUI sessionHelper ;
+  private JamesHelper jamesHelper;
+  private NavigationHelper navigationHelper;
+  private UserHelper userHelper;
+  private DbHelper dbHelper;
 
 
   public ApplicationManager(String browser)  {
@@ -63,12 +67,7 @@ public HttpSession newSession(){
     return properties.getProperty(key);
   }
 
-  public RegistrationHelper registration() {
-    if(registrationHelper == null){
-      registrationHelper = new  RegistrationHelper(this);
-    }
-return  registrationHelper;
-  }
+
 
   public WebDriver getDriver() {
     if (wd == null){
@@ -86,6 +85,13 @@ return  registrationHelper;
     return  wd;
   }
 
+  public RegistrationHelper registration() {
+    if(registrationHelper == null){
+      registrationHelper = new  RegistrationHelper(this);
+    }
+    return  registrationHelper;
+  }
+
   public MailHelper mail(){
     if(mailHelper == null){
       mailHelper = new MailHelper(this); 
@@ -93,11 +99,40 @@ return  registrationHelper;
     return  mailHelper;
   }
 
-  public SessionHelper session(){
+  public JamesHelper james(){
+    if(jamesHelper == null){
+      jamesHelper = new JamesHelper(this);
+    }
+    return  jamesHelper;
+
+  }
+
+  public SessionHelperUI sessionUI(){
     if(sessionHelper == null){
-      sessionHelper = new SessionHelper(this);
+      sessionHelper = new SessionHelperUI(this);
     }
     return  sessionHelper;
 
+  }
+
+  public NavigationHelper goTo(){
+    if(navigationHelper == null){
+      navigationHelper = new NavigationHelper(this);
+    }
+    return navigationHelper;
+  }
+
+  public UserHelper user(){
+    if(userHelper == null){
+      userHelper = new UserHelper(this);
+    }
+    return userHelper;
+  }
+
+  public DbHelper db() {
+    if(dbHelper == null){
+      dbHelper = new DbHelper();
+    }
+    return dbHelper;
   }
 }

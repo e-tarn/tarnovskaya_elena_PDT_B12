@@ -3,8 +3,7 @@ package com.stqa.mantis.manager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class RegistrationHelper extends HelperBase{
-
+public class RegistrationHelper extends HelperBase {
 
 
   public RegistrationHelper(ApplicationManager app) {
@@ -12,9 +11,9 @@ public class RegistrationHelper extends HelperBase{
   }
 
   public void start(String userName, String email) {
-wd.get(app.getProperty("web.baseUrl") +"/signup_page.php");
+    wd.get(app.getProperty("web.baseUrl") + "/signup_page.php");
     type(By.name("username"), userName);
-    type(By.name("email"),email);
+    type(By.name("email"), email);
     click(By.cssSelector("input[value='Signup']"));
   }
 
@@ -23,7 +22,6 @@ wd.get(app.getProperty("web.baseUrl") +"/signup_page.php");
     type(By.name("password"), password);
     type(By.name("password_confirm"), password);
     click(By.cssSelector("input[value='Update User']"));
-
 
 
   }
