@@ -18,9 +18,12 @@ public class ApplicationManager {
   protected WebDriver wd;
   protected WebDriverWait wait;
 
-  SessionHelper session;
+ // protected SessionHelper session;
 
   private String browser;
+  private RegistrationHelper registrationHelper;
+  private MailHelper mailHelper;
+  private SessionHelper sessionHelper ;
 
 
   public ApplicationManager(String browser)  {
@@ -35,32 +38,66 @@ public class ApplicationManager {
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
 
-    if (browser.equals(BrowserType.FIREFOX)) {
-      wd = new FirefoxDriver();
-    } else if (browser.equals(BrowserType.CHROME)) {
-      wd = new ChromeDriver();
-    } else if (browser.equals(BrowserType.IE)) {
-      wd = new InternetExplorerDriver();
-    }
-    wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-    wait = new WebDriverWait(wd, 25);
-    wd.get(properties.getProperty("web.baseUrl","http://localhost/mantisbt-1.2.19/"));
-    session = new SessionHelper(wd, wait);
-
-    session.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
+//    session.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
 
   }
 
 
   public void stop() {
-    wd.quit();
+   if(wd != null) {
+     wd.quit();
+   }
   }
 
 
 
-  public SessionHelper getSession() {
-    return session;
+//  public SessionHelper getSession() {
+//    return session;
+//  }
+
+public HttpSession newSession(){
+    return  new HttpSession(this);
+}
+
+  public String getProperty(String key) {
+    return properties.getProperty(key);
   }
 
+  public RegistrationHelper registration() {
+    if(registrationHelper == null){
+      registrationHelper = new  RegistrationHelper(this);
+    }
+return  registrationHelper;
+  }
 
+  public WebDriver getDriver() {
+    if (wd == null){
+      if (browser.equals(BrowserType.FIREFOX)) {
+        wd = new FirefoxDriver();
+      } else if (browser.equals(BrowserType.CHROME)) {
+        wd = new ChromeDriver();
+      } else if (browser.equals(BrowserType.IE)) {
+        wd = new InternetExplorerDriver();
+      }
+      wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+      wait = new WebDriverWait(wd, 25);
+      wd.get(properties.getProperty("web.baseUrl","http://localhost/mantisbt-1.2.19/"));
+    }
+    return  wd;
+  }
+
+  public MailHelper mail(){
+    if(mailHelper == null){
+      mailHelper = new MailHelper(this); 
+    }
+    return  mailHelper;
+  }
+
+  public SessionHelper session(){
+    if(sessionHelper == null){
+      sessionHelper = new SessionHelper(this);
+    }
+    return  sessionHelper;
+
+  }
 }

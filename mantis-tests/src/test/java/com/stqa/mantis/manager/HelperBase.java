@@ -8,12 +8,12 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HelperBase {
+  protected ApplicationManager app;
   protected WebDriver wd;
-  protected WebDriverWait wait;
 
-  public HelperBase(WebDriver wd, WebDriverWait wait) {
-    this.wd = wd;
-    this.wait = wait;
+  public HelperBase(ApplicationManager app) {
+    this.app = app;
+    wd = app.getDriver();
   }
 
   public void click(By locator) {
@@ -35,14 +35,11 @@ public class HelperBase {
     }
   }
 
-      public void selectFromDropDown(By locator, String item){
-    if(item!= null) {
+  public void selectFromDropDown(By locator, String item) {
+    if (item != null) {
       new Select(wd.findElement(locator))
               .selectByVisibleText(item);
     }
-
-
-
 
 
   }

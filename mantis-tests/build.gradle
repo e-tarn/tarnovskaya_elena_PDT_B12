@@ -16,12 +16,13 @@ dependencies {
     implementation 'org.testng:testng:7.1.0'
     implementation 'org.hamcrest:java-hamcrest:2.0.0.0'
     implementation 'ch.qos.logback:logback-classic:1.2.3'
-}
+    implementation 'org.apache.httpcomponents:httpclient:4.5.12'
+    implementation 'org.subethamail:subethasmtp:3.1.7'
+    implementation 'ru.lanwen.verbalregex:java-verbal-expressions:1.6'}
 
 test {
-    useTestNG {
-        suites 'src/test/resources/testng.xml'
-    }
+    useTestNG ()
+
     if (project.hasProperty('browser')){
         systemProperty 'browser', "${browser}"
     }
@@ -30,5 +31,9 @@ test {
     }
     if (project.hasProperty('verifyUI')){
         systemProperty 'verifyUI', "${verifyUI}"
+    }
+
+    tasks.withType(Test){
+        systemProperty "file.encoding", "UTF-8"
     }
 }
