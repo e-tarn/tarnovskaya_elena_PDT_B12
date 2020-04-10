@@ -1,17 +1,26 @@
 package com.stqa.mantis.tests;
 
 
+import biz.futureware.mantis.rpc.soap.client.IssueData;
+import biz.futureware.mantis.rpc.soap.client.MantisConnectPortType;
+import biz.futureware.mantis.rpc.soap.client.ObjectRef;
+import biz.futureware.mantis.rpc.soap.client.ProjectData;
 import com.stqa.mantis.manager.ApplicationManager;
+import com.stqa.mantis.model.Issue;
+import com.stqa.mantis.model.Project;
 import org.openqa.selenium.remote.BrowserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.SkipException;
+import org.testng.annotations.*;
 
+import javax.xml.rpc.ServiceException;
 import java.lang.reflect.Method;
+import java.math.BigInteger;
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
 import java.util.Arrays;
+import java.util.Set;
 
 public class TestBase {
 
@@ -43,4 +52,19 @@ public class TestBase {
   }
 
 
+  public boolean isIssueOpen(int issueId) throws RemoteException, ServiceException, MalformedURLException {
+    IssueData issueData = app.soap().getIssue(issueId);
+    return !issueData.getStatus().getName().equals("closed");
+  }
+
+
+  public void skipIfNotFixed(int issueId) throws RemoteException, ServiceException, MalformedURLException {
+    if (isIssueOpen(issueId)) {
+      System.out.println("Skipped because issue " + issueId + " isn't closed");
+    }
+  }
 }
+
+
+
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.stqa.mantis.tests.SoapTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-04-10T08:55:43" hostname="Lena-Toshiba" time="0.713">
+  <properties/>
+  <testcase name="testGetProjects" classname="com.stqa.mantis.tests.SoapTests" time="0.713"/>
+  <system-out><![CDATA[11:55:43.423 [Test worker] INFO  com.stqa.mantis.tests.TestBase - Start test testGetProjects with parameters: []
+3
+3 kljlkjkl
+1 nnbmbm
+2 ghjgjgj
+11:55:44.150 [Test worker] INFO  com.stqa.mantis.tests.TestBase - Stop test testGetProjects
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
