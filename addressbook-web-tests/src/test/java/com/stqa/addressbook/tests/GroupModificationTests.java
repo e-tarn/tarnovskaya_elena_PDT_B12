@@ -66,7 +66,7 @@ public class GroupModificationTests extends TestBase {
   @Test
   public void testAnyGroupModification() {
     app.goTo().groupPage();
-    Set<GroupData> before = app.group().all();
+    Set<GroupData> before = app.db().groups();
     GroupData modifiedGroup = before.iterator().next();
 
     GroupData group = new GroupData()
@@ -76,7 +76,7 @@ public class GroupModificationTests extends TestBase {
             .withFooter("mod");
 
     app.group().modfyById(group);
-    Set<GroupData> after = app.group().all();
+    Set<GroupData> after = app.db().groups();
     assertEquals(after.size(), before.size());
     before.remove(modifiedGroup);
     before.add(group);

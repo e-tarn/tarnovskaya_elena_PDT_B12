@@ -33,25 +33,14 @@ public class ContactDeletionTests extends TestBase {
 
   }
 
-  @Test
-  public void testContactDeletionFromHomePage() {
-    List<ContactData> before = app.contact().list();
-    app.contact().delete(before.size() - 1);
-    List<ContactData> after = app.contact().list();
 
-    Assert.assertEquals(after.size(), before.size() - 1);
-
-    before.remove(before.size() - 1);
-
-    Assert.assertEquals(after, before);
-  }
 
   @Test(enabled = false)
   public void testContactDeletionFromContactModificationPage() {
-    List<ContactData> before = app.contact().list();
+    Contacts before = app.db().contacts();
     int index = before.size() - 1;
     app.contact().deleteFromModificationForm(index);
-    List<ContactData> after = app.contact().list();
+    Contacts after = app.db().contacts();
 
     Assert.assertEquals(after.size(), before.size() - 1);
 
