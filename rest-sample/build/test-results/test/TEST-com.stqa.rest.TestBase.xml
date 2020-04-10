@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.stqa.rest.TestBase" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-04-10T13:21:32" hostname="Lena-Toshiba" time="2.287">
+  <properties/>
+  <testcase name="testmy" classname="com.stqa.rest.TestBase" time="2.287"/>
+  <system-out><![CDATA[true
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

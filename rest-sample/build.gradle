@@ -1,0 +1,37 @@
+import org.gradle.api.tasks.testing.Test
+
+plugins {
+    id 'java'
+}
+
+group 'Lena'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.testng:testng:7.1.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.12'
+    implementation 'org.apache.httpcomponents:fluent-hc:4.5.12'
+    implementation 'io.rest-assured:rest-assured:4.3.0'
+}
+
+test {
+    useTestNG()
+
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+    }
+    if (project.hasProperty('verifyUI')) {
+        systemProperty 'verifyUI', "${verifyUI}"
+    }
+
+}
